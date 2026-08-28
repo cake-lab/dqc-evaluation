@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      # - name: Install dependencies
+      #   run: uv sync --locked --all-groups
+
+      # - name: Run lint
+      #   run: uv run ruff check src tests
+
+      # - name: Run tests
+      #   run: uv run pytest tests/ -q
+
+      # - name: Check lockfile
+      #   run: uv lock --check
+
+      # - name: Build package
+      #   run: uv build
+
+      # - name: Smoke test CLI
+      #   run: uv run python -m src.main --help
+
+      # - name: Compile Python sources
+      #   run: uv run python -m compileall -q src tests
+
+      # - name: Validate built wheel
+      #   shell: bash
+      #   run: |
+      #     project_python="$(uv run python -c 'import sys; print(sys.executable)')"
+      #     uv pip uninstall --python "$project_python" dqc-evaluation
+      #     uv pip install --python "$project_python" dist/*.whl --no-deps
+      #     (
+      #       cd "$RUNNER_TEMP"
+      #       "$project_python" -c 'import src; import src.main; import src.config'
+      #     )
+
+      - name: Validate notebook JSON
+        shell: bash
+        run: |
+          while IFS= read -r -d '' notebook; do
+            python -m json.tool "$notebook" >/dev/null
+          done < <(find notebooks -type f -name '*.ipynb' -print0)
+
+  release-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reject tracked machine-local paths
+        run: |
+          if git grep -n -I -E '/home/|/Users/|[A-Z]:\\\\' -- . \
+            ':(exclude)**/*.ipynb' \
+            ':(exclude).github/workflows/ci.yml'; then
+            echo 'Tracked release artifacts contain machine-local paths.'
+            exit 1
+          fi
+
+      - name: Reject oversized tracked files
+        shell: bash
+        run: |
+          max_kib=102400
+          oversized=0
+          while IFS=$'\t' read -r size path; do
+            if (( size > max_kib )); then
+              printf 'Tracked file exceeds 100 MiB: %s (%s KiB)\n' "$path" "$size"
+              oversized=1
+            fi
+          done < <(git ls-files -z | xargs -0 -r du -k | sort -nr)
+          exit "$oversized"

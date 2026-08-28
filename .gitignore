@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Tools
+.ruff_cache/
+.pytest_cache/
+.vscode/
+.coverage
+.mypy_cache/
+
+# Generated release artifacts
+dist/
+build/
+dqc_evaluation.egg-info/
+
+# Repo specific
+.env
+results/

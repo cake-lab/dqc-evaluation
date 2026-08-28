@@ -1,0 +1,55 @@
+experiment:
+  ### Benchmarks configuration
+  benchmarks:
+    - disqco.mfpqc
+    # - disqco.mfpqc.cp_scaling.f0p3 # The benchmarks to evaluate can be specified in subgroups, which allows for more fine-grained control over the experiments.
+    # - disqco.mfpqc.cp_scaling.f0p5
+    # - disqco.mfpqc.cp_scaling.f0p7
+    # - disqco.mfpqc.cp_scaling.f0p9
+    # - disqco.mfpqc.qaoa
+    # - disqco.mfpqc.qft
+    # - disqco.mfpqc.qv
+    - qasmbench
+    # - qasmbench.large
+    # - qasmbench.medium
+    # - qasmbench.small
+
+  ### Network topology configuration
+  network:
+    topologies:
+      - linear
+      - mesh # (grid)
+      - fully_connected
+    num_qpus: # Warning: linear, mesh (grid), and fully_connected topologies with 2 QPUs are equivalent.
+      - 2
+      - 4
+
+  ### Partitioners to evaluate
+  partitioners: # List of partitioner
+    - mlfm-r
+    - fgp-roee
+    - pytket-dqc-p
+    - pytket-dqc-pe
+    - pytket-dqc-esd
+
+  ### Partitioner-specific configuration options
+  partitioner_configs:
+    pytket-dqc-p:
+      run_in_subprocess: true # Option to run the partitioner in a subprocess, which can help capturing KaHyPar issues in Pytket-dqc partitioners (which often happen in the qasmbench benchmarks; so it is not necessary to include this option if running other benchmarks in isolation).
+    pytket-dqc-pe:
+      run_in_subprocess: true
+    pytket-dqc-esd:
+      run_in_subprocess: true
+    fgp-roee:
+      choose_initial: false # Enable rOEE refinement in FGP partitioner.
+
+  ### Experiment configuration
+  timeout_seconds: 600 # Timeout for each partitioning run, in seconds.
+  # skip_larger_circuits_after_timeout: 10 # Useful option for benchmarks with increasingly larger circuits, where a smaller circuit timing out may indicate that larger circuits will also time out.
+  # skip_larger_circuits_after_timeout: 0 # Recommended for qasmbench benchmarks, as a smaller circuit timing out does not necessarily mean that larger circuits will also time out.
+
+### Results configuration
+results:
+  output_dir: results # Directory where the results will be saved.
+  name: "all_experiments" # Name of the experiment, used to tag the results.
+  description: "Final experiment: all partitioners, linear topologies, all benchmarks." # Description of the experiment, used to tag the results.

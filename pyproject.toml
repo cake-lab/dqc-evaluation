@@ -1,0 +1,55 @@
+[project]
+name = "dqc-evaluation"
+version = "0.1.0"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Javier Vela", email = "javier.vela00@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "disqco",
+    "fastjsonschema>=2.21.2",
+    "importlib-resources>=6.5.2",
+    "kahypar>=1.3.7",
+    "pandas>=2.3.3",
+    "pyarrow>=24.0.0",
+    "pytket>=2.15.0",
+    "pytket-dqc",
+    "pytket-qiskit>=0.60.0",
+    "pyyaml>=6.0.3",
+    "qceval",
+    "qiskit[visualization]>=1.2.4",
+    "tabulate>=0.10.0",
+    "tqdm>=4.67.1",
+]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.14.0",
+    "pytest>=9.0.2",
+    "ruff>=0.16.4",
+    "scienceplots>=2.2.2",
+]
+
+[build-system]
+requires = ["setuptools>=77.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = [
+    "src",
+    "src.config",
+    "src.network",
+    "src.partitioner",
+    "src.results",
+]
+
+[tool.setuptools.package-data]
+"src.config" = ["*.yaml"]
+
+[tool.uv.sources]
+disqco = { git = "https://github.com/felix-burt/DISQCO.git", rev = "2e5e47156bee689f80bd1eb7c5d6ec15b1f18cfc" }
+pytket-dqc = { git = "https://github.com/Quantinuum/pytket-dqc.git", rev = "08683f06b2884f18e73e446400f78f83ade52113" }
+qceval = { git = "https://github.com/cake-lab/qceval.git", rev = "52477ca4016fb06466684baa3a7dedafcbe03cb0" }
