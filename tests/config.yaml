@@ -1,0 +1,24 @@
+experiment:
+  benchmarks:
+    - disqco.mfpqc.qft
+  network:
+    topologies:
+      - linear
+    num_qpus:
+      - 2
+      - 4
+  partitioners:
+    - fgp-roee
+  metrics: null
+  custom_metrics:
+    - ebit_count
+  exec_time_columns:
+    - preprocessing_exec_time_s
+    - partition_exec_time_s
+    - postprocessing_exec_time_s
+  timeout_seconds: 10
+  skip_larger_circuits_after_timeout: 1
+results:
+  output_dir: results
+  name: "test"
+  description: "Test run for debugging."
