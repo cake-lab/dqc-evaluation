@@ -34,10 +34,6 @@ The evaluation methodology and results are described in the paper [*Towards Repr
 
 ## Installation
 
-> [!WARNING]
->
-> This project currently depends on [`qceval`](https://github.com/cake-lab/qceval), an internal library that is not yet publicly available. Therefore, the installation instructions below will not work until **`qceval` is released shortly**.
-
 ### 0. Prerequisites
 
 - To reproduce the paper results, install the partitioning algorithms by following the instructions for [DISQCO](https://github.com/felix-burt/DISQCO#installation) and [Pytket-DQC](https://github.com/Quantinuum/pytket-dqc#requirements).
@@ -56,6 +52,10 @@ cd dqc-evaluation
 ```sh
 uv sync
 ```
+
+> [!NOTE]
+>
+> This project uses [`qceval`](https://github.com/cake-lab/qceval), an internal library for quantum circuit evaluation, including loading benchmarking circuit data and metrics computation. It is automatically installed as a dependency when running `uv sync`.
 
 ## Supported Features & Components
 
@@ -94,7 +94,11 @@ The framework is designed to be run from the command line. The main entry point 
 The user needs to provide a configuration file in YAML format, which specifies the partitioning algorithm, network topology, benchmark circuits, and evaluation metrics to be used. An example configuration file is provided in [`experiments/config.yaml`](experiments/config.yaml) with explanations for each option. Use the `--config`/`-c` option to specify the path to the configuration file.
 
 <!-- TODO config.yaml explanation -->
-<!-- TODO qceval how to use -> .env file -->
+
+> [!NOTE]
+>
+> The user will also need to configure the benchmarking library [`qceval`](https://github.com/cake-lab/qceval) following the instructions in its README.
+> The configuration is done via a `.env` file, which should be placed in the root of the repository.
 
 To run the framework with the example configuration, use the following command:
 
