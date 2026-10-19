@@ -1,8 +1,10 @@
 # Evaluation of Distributed Quantum Circuit Partitioning Algorithms
 
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![CI](https://github.com/cake-lab/dqc-evaluation/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cake-lab/dqc-evaluation/actions/workflows/ci.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-3776AB.svg)](https://www.python.org/downloads/)
-[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv-2608.27099-b31b1b.svg)](https://arxiv.org/abs/2608.27099)
+[![Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.22117678-blue)](https://doi.org/10.5281/zenodo.22117678)
 
 A reproducible evaluation framework for benchmarking **distributed quantum circuit partitioning** algorithms under network constraints. It compares partitioning methods across standardized workloads and topologies while extracting circuit-level metrics beyond the usual entanglement cost, enabling a more faithful assessment of their practical performance in distributed quantum execution.
 
