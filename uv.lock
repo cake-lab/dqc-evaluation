@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -529,7 +529,7 @@ requires-dist = [
     { name = "pytket-dqc", git = "https://github.com/Quantinuum/pytket-dqc.git?rev=08683f06b2884f18e73e446400f78f83ade52113" },
     { name = "pytket-qiskit", specifier = ">=0.60.0" },
     { name = "pyyaml", specifier = ">=6.0.3" },
-    { name = "qceval", git = "https://github.com/cake-lab/qceval.git?rev=52477ca4016fb06466684baa3a7dedafcbe03cb0" },
+    { name = "qceval", git = "https://github.com/cake-lab/qceval.git?rev=3694b10" },
     { name = "qiskit", extras = ["visualization"], specifier = ">=1.2.4" },
     { name = "tabulate", specifier = ">=0.10.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
@@ -660,11 +660,11 @@ wheels = [
 
 [[package]]
 name = "idna"
-version = "3.11"
+version = "3.20"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz", hash = "sha256:795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902", size = 194582, upload-time = "2025-10-12T14:55:20.501Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz", hash = "sha256:a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44", size = 216463, upload-time = "2026-09-17T14:11:04.752Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0e/61/66938bbb5fc52dbdf84594873d5b51fb1f7c7794e9c0f5bd885f30bc507b/idna-3.11-py3-none-any.whl", hash = "sha256:771a87f49d9defaf64091e6e6fe9c18d4833f140bd19464795bc32d966ca37ea", size = 71008, upload-time = "2025-10-12T14:55:18.883Z" },
+    { url = "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl", hash = "sha256:ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c", size = 69583, upload-time = "2026-09-17T14:11:03.168Z" },
 ]
 
 [[package]]
@@ -1900,8 +1900,10 @@ wheels = [
 [[package]]
 name = "qceval"
 version = "0.1.0"
-source = { git = "https://github.com/cake-lab/qceval.git?rev=52477ca4016fb06466684baa3a7dedafcbe03cb0#52477ca4016fb06466684baa3a7dedafcbe03cb0" }
+source = { git = "https://github.com/cake-lab/qceval.git?rev=3694b10#3694b10aba6ddbeee796f1411de87b93d5c2ced6" }
 dependencies = [
+    { name = "networkx" },
+    { name = "numpy" },
     { name = "python-dotenv" },
     { name = "qiskit" },
     { name = "tabulate" },
